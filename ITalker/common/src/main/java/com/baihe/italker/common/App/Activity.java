@@ -24,8 +24,9 @@ public abstract class Activity extends AppCompatActivity{
         initWindows();
 
         if(initArgs(getIntent().getExtras())){
-
-            getContentLayoutId();
+            // 得到页面的 Id 并设置到 Activity 中
+            int layId = getContentLayoutId();
+            setContentView(layId);
             initWidget();
             initData();
         }
