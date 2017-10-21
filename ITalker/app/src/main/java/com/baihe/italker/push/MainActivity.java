@@ -1,14 +1,21 @@
 package com.baihe.italker.push;
 
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.baihe.italker.common.App.Activity;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
-public class MainActivity extends Activity {
-    @BindView(R.id.txt_test)
-    TextView mTestView;
+public class MainActivity extends Activity implements IView{
+    @BindView(R.id.txt_result)
+    TextView mResultView;
+
+    @BindView(R.id.edit_query)
+    EditText mInputText;
+
+    private IPresenter mPresenter;
 
     @Override
     protected int getContentLayoutId() {
@@ -16,8 +23,26 @@ public class MainActivity extends Activity {
     }
 
     @Override
-    protected void initWidget() {
-        super.initWidget();
-        mTestView.setText("Test Hello");
+    protected void initData() {
+        super.initData();
+
+        mPresenter = new Presenter(this);
+
+    }
+
+    @OnClick(R.id.btn_submit)
+    void onSubmint(){
+        mPresenter.search();
+    }
+
+    @Override
+    public String getInputString() {
+        return mInputText.getText().toString();
+    }
+
+    @Override
+    public void setResultString(String string) {
+
+        mResultView.setText(string);
     }
 }
